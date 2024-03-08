@@ -1,31 +1,41 @@
-function Solution() {
-    const str = readline();
-    const mp = new Map();
-    for (const s of str) {
-        mp.set(s, mp.has(s) ? mp.get(s) + 1 : 1)
-    }
-    // console.log('mp:', mp)
-    for (const [k, v] of mp.entries()) {
-        if (v === 1) {
-            for (let i = 0; i < str.length; i ++) {
-                if (str[i] === k) {
-                    console.log(i + 1)
-                    break;
-                }
-            }
-            return;
+// var input=require("fs").readFileSync("/dev/stdin","utf8");
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
+
+let inputString = "", content = null, cid = 0;
+
+process.stdin.on("data", (inputStdin) => {
+    inputString += inputStdin;
+});
+
+process.stdin.on("end", (_) => {
+    content=inputString.split(/ |\n/), cid=0;
+    solve();
+})
+
+function solve() {
+    const str = cin();
+    for (let i = 0; i < str.length; i ++) {
+        let flag = true
+        for (let j = 0; j < str.length; j ++) {
+            if (i !== j && str[j] === str[i]) flag = false
+        }
+        if (flag) {
+            cout(i + 1)
+            break;
         }
     }
 }
 
-let i = 0;
-const lines = []
+function cin() {
+    return content[cid++];
+}
+function cinN() {
+    return Number(content[cid++])
+}
 
-function readline() { return lines[i++] }
-const readlineM = require('readline')
-const rl = readlineM.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-rl.on('line', (input) => lines.push(input));
-rl.on('close', Solution);
+function cout(...args) {
+    args.forEach((item) => {
+        console.log(item);
+    })
+}

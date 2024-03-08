@@ -1,35 +1,52 @@
-function Solution() {
-    const N = Number(readline());
-    const str = Array.from(readline());
-    
-    const Q = Number(readline());
+function solve() {
+    const N = cin();
+    const S = cinS().split('');
+    const Q = cin();
+
     const arr = new Array(26);
-    for (let i = 0; i < 26; i ++ ) {
-        arr[i] = i
+    for (let i = 0; i < 26; i ++) {
+        arr[i] = String.fromCharCode(i + 'a'.charCodeAt());
     }
+
     for (let i = 0; i < Q; i ++) {
-        [from, to] = readline().split(' ');
-        for (let i = 0; i < 26; i ++) {
-            if (arr[i] === from.charCodeAt() - 'a'.charCodeAt()) {
-                arr[i] = to.charCodeAt() - 'a'.charCodeAt();
+        let a = cinS(), b = cinS();
+        for (let j = 0; j < 26; j ++) {
+            if (arr[j] === a) {
+                arr[j] = b
             }
         }
     }
 
-    for (let i = 0; i < str.length; i ++) {
-        str[i] = String.fromCharCode('a'.charCodeAt() + arr[str[i].charCodeAt() - 'a'.charCodeAt()]);
+    for (let i = 0; i < N; i ++) {
+        S[i] = arr[S[i].charCodeAt() - 'a'.charCodeAt()]
     }
-    console.log(str.join(''));
+
+    cout(S.join(''))
 }
 
-let i = 0;
-const lines = []
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-function readline() { return lines[i++] }
-const readlineM = require('readline')
-const rl = readlineM.createInterface({
-    input: process.stdin,
-    output: process.stdout
+let inputString = '', content = null, cid = 0;
+
+process.stdin.on('data', (inputStdin) => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', (_) => {
+    content=inputString.split(/ |\n/), cid=0;
+    solve();
 })
-rl.on('line', (input) => lines.push(input));
-rl.on('close', Solution);
+
+function cin() {
+    return Number(content[cid++])
+}
+function cinS() {
+    return content[cid++]
+}
+
+function cout(...args) {
+    args.forEach((item) => {
+        console.log(item);
+    })
+}

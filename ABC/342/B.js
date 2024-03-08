@@ -1,27 +1,45 @@
-function Solution() {
-    const N = Number(readline());
-    const peoples = readline().split(' ').map((item) => Number(item));
-    // console.log('peoples:', peoples);
-    const Q = Number(readline())
+function solve() {
+    const N = cinN();
+    const arr = new Array(N)
+    for (let i = 0; i < N; i ++) {
+        arr[i] = cinN();
+    }
+
+    const arrMap = new Array(N);
+    for (let i = 0; i < N; i ++) {
+        arrMap[arr[i]] = i
+    }
+
+    const Q = cinN();
     for (let i = 0; i < Q; i ++) {
-        const [a, b] = readline().split(' ').map(Number);
-        for (let j = 0; j < N; j ++) {
-            if (peoples[j] === a || peoples[j] === b) {
-                console.log(peoples[j])
-                break;
-            }
-        }
+        const a = cinN(), b = cinN();
+        cout(arrMap[a] < arrMap[b] ? a : b);
     }
 }
 
-let i = 0;
-const lines = []
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-function readline() { return lines[i++] }
-const readlineM = require('readline')
-const rl = readlineM.createInterface({
-    input: process.stdin,
-    output: process.stdout
+let inputString = '', content = null, cid = 0;
+
+process.stdin.on('data', (inputStdin) => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', (_) => {
+    content=inputString.split(/ |\n/), cid=0;
+    solve();
 })
-rl.on('line', (input) => lines.push(input));
-rl.on('close', Solution);
+
+function cin() {
+    return content[cid++];
+}
+function cinN() {
+    return Number(content[cid++])
+}
+
+function cout(...args) {
+    args.forEach((item) => {
+        console.log(item);
+    })
+}
