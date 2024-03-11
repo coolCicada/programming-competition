@@ -1,18 +1,29 @@
-function Solution() {
-  const str = cl();
-  const index = str.length / 2 | 0;
-  co(str[index]);
+function main() {
+    const str = cinS();
+    cout(str[str.length / 2 | 0])
 }
 
-let i = 0;
-const lines = []
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-function cl() { return lines[i++] }
-function co(str) { console.log(str)}
-const readline = require('readline')
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+let inputString = '', content = null, cid = 0;
+
+process.stdin.on('data', (inputStdin) => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', (_) => {
+    content=inputString.split(/ |\r\n|\n/), cid=0;
+    main();
 })
-rl.on('line', (input) => lines.push(input));
-rl.on('close', Solution);
+
+function cin() {
+    return Number(content[cid++])
+}
+function cinS() {
+    return content[cid++]
+}
+
+function cout(...args) {
+    console.log(...args);
+}

@@ -1,18 +1,34 @@
-function Solution() {
-  let n = BigInt(cl());
-  let m = 998244353n;
-  co(Number(((n % m) + m) % m));
+function main() {
+    const con = 998244353;
+    const n = BigInt(cinS())
+    if (n % BigInt(con) >= 0) {
+        cout(Number(n % BigInt(con)))
+    } else {
+        cout(Number(n % BigInt(con) + BigInt(con)))
+    }
 }
 
-let i = 0;
-const lines = []
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
 
-function cl() { return lines[i++] }
-function co(str) { console.log(str)}
-const readline = require('readline')
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+let inputString = '', content = null, cid = 0;
+
+process.stdin.on('data', (inputStdin) => {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', (_) => {
+    content=inputString.split(/ |\r\n|\n/), cid=0;
+    main();
 })
-rl.on('line', (input) => lines.push(input));
-rl.on('close', Solution);
+
+function cin() {
+    return Number(content[cid++])
+}
+function cinS() {
+    return content[cid++]
+}
+
+function cout(...args) {
+    console.log(...args);
+}
