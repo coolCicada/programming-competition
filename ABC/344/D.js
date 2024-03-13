@@ -34,7 +34,7 @@ function main() {
         }
     }
 
-    cout(dp[n])
+    cout(dp[n] !== Infinity ? )
     
 
 
