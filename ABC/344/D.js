@@ -16,8 +16,12 @@ function main() {
     dp[0][0] = 0
     for (let i = 1; i <= n; i ++) {
         const currArr = arr[i - 1]
+        for (let t = 0; t <= T.length; t ++) {
+            dp[i][t] = dp[i - 1][t];
+        }
         for (let j = 0; j < currArr.length; j ++) {
             const currword = currArr[j]
+            
             for (let z = 0; z + currword.length - 1 < T.length; z ++) {
                 let flag = true
                 for (let x = 0; x < currword.length; x ++ ) {
@@ -26,18 +30,13 @@ function main() {
                         break;
                     }
                 }
-                dp[i][z + currword.length] = dp[i - 1][z + currword.length]
                 if (flag) {
                     dp[i][z + currword.length] = Math.min(dp[i - 1][z] + 1, dp[i][z + currword.length])
                 }
             }
         }
     }
-
-    cout(dp[n] !== Infinity ? )
-    
-
-
+    cout(dp[n][T.length] !== Infinity ? dp[n][T.length] : -1)
 }
 
 process.stdin.resume();
