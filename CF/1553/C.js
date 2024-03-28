@@ -1,57 +1,50 @@
 function main() {
     let t = cin();
-    while (t --) solve() 
+    while (t --) solve()
 }
 
 function solve() {
     const str = cinS();
-    const L = str.length;
-    const a = new Array(L + 1)
-        .fill(0)
-        .map(
-            () => new Array(2)
-                .fill(0)
-        )
-
-    const b = new Array(L + 1)
-        .fill(0)
-        .map(() => new Array(2).fill(0))
-    for (let i = 1; i <= L; i ++) {
-        a[i][0] = a[i - 1][0]
-        a[i][1] = a[i - 1][1]
-        if (i % 2 !== 0) {
-            if (str[i - 1] === '?') {
-                a[i][1] ++
-            }
-            if (str[i - 1] === '1') {
-                a[i][1] ++
-                a[i][0] ++
-            }
-        }
-    }
-    for (let i = 1; i <= L; i ++) {
-        b[i][0] = b[i - 1][0]
-        b[i][1] = b[i - 1][1]
+    let res = 10
+    let a = 0, b = 0
+    for (let i = 0; i < 10; i ++) {
         if (i % 2 === 0) {
-            if (str[i - 1] === '?') {
-                b[i][1] ++
+            a += str[i] === '?' || str[i] === '1'
+        } else {
+            b += str[i] === '1'
+        }
+        if (a > b) {
+            if (a > b + Math.ceil((9 - i) / 2)) {
+                res = i + 1
+                break;
             }
-            if (str[i - 1] === '1') {
-                b[i][1] ++
-                b[i][0] ++
+        } else {
+            if (b > a + Math.floor((9 - i) / 2)) {
+                res = i + 1;
+                break;
             }
         }
     }
-
-    for (let i = 1; i <= L; i ++) {
-        if (a[i][1] > b[i][0] + Math.ceil((10 - i) / 2)) {
-            return cout(i)
+    a = 0, b = 0
+    for (let i = 0; i < 10; i ++) {
+        if (i % 2 === 0) {
+            a += str[i] === '1'
+        } else {
+            b += str[i] === '1' || str[i] === '?'
         }
-        if (b[i][1] > a[i][0] + Math.floor((10 - i) / 2)) {
-            return cout(i)
+        if (a > b) {
+            if (a > b + Math.ceil((9 - i) / 2)) {
+                res = Math.min(res, i + 1)
+                break;
+            }
+        } else {
+            if (b > a + Math.floor((9 - i) / 2)) {
+                res = Math.min(res, i + 1)
+                break;
+            }
         }
     }
-    cout(10)
+    cout(res)
 }
 
 process.stdin.resume();
