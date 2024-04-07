@@ -23,17 +23,17 @@ function main() {
         mp.set(r * 1000 + c, e)
     }
     const dis = new Array(h + 1).fill(0).map(() => new Array(w + 1).fill(-1));
-    const vis = new Array(h + 1).fill(0).map(() => new Array(w + 1).fill(false))
     const heap = new BinaryHeap();
     const firtD = mp.get(x * 1000 + y) || 0
     heap.push({ key: -firtD,  val: [x, y] });
     while (heap.size()) {
         const t = heap.pop();
         const [x, y] = t.val;
-        if (vis[x][y]) continue;
+        if (dis[x][y] >= -t.key) {
+            continue
+        }
         if (arr[x][y] === '#') continue;
         dis[x][y] = -t.key;
-        vis[x][y] = true;
         if (-t.key === 0) continue
         const dx = [0, 1, 0, -1]
         const dy = [1, 0, -1, 0]
@@ -41,8 +41,8 @@ function main() {
             const nx = dx[i] + x
             const ny = dy[i] + y
             if (nx >= 1 && nx <= h && ny >= 1 && ny <= w) {
-                dis[nx][ny] = Math.max(dis[nx][ny], -t.key - 1, mp.get(nx * 1000 + ny) || 0);
-                heap.push({ key: -dis[nx][ny], val: [nx, ny]})
+                const dist = Math.max(dis[nx][ny], -t.key - 1, mp.get(nx * 1000 + ny) || 0);
+                heap.push({ key: -dist, val: [nx, ny]})
             }
         }
     }
