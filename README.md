@@ -1,5 +1,5 @@
 ## 简介
-    使用 javascript 练习 atcoder题目
+    练习算法
 
 ## 代办
 - [ ] 最大堆
